@@ -52,10 +52,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Main.cs" />
-     <Compile Include="Assets\UIs\chat\Scripts\ChatListObject.cs" />
-     <Compile Include="Assets\UIs\chat\Scripts\ChatManager.cs" />
-     <Compile Include="Assets\UIs\chat\Scripts\InputfieldFocused.cs" />
-     <Compile Include="Assets\UIs\chat\Scripts\InputfieldSlideScreen.cs" />
      <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-auth-unity\maven-metadata.xml" />
      <None Include="Assets\Firebase\Plugins\link.xml" />
      <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-database-unity\maven-metadata.xml" />
