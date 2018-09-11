@@ -12,7 +12,7 @@ public class UserImage : MonoBehaviour
 
 	public void LoadImage(string url) {
 		this.url = url;
-		StartCoroutine("LoadTexture");
+		if (this.url != "") StartCoroutine("LoadTexture");
 	}
     private IEnumerator LoadTexture()
     {
