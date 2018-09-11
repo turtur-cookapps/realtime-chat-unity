@@ -60,8 +60,8 @@ public class Main : MonoBehaviour {
 			chatData.avatar = this.avatar;
 			chatDatas.Add(chatData);
 			
-			// string id = this.db.GetReference("chats").Push().Key;
-			// this.db.GetReference("chats").Child(id).SetRawJsonValueAsync(JsonUtility.ToJson(chatData));
+			string id = this.db.GetReference("chats").Push().Key;
+			this.db.GetReference("chats").Child(id).SetRawJsonValueAsync(JsonUtility.ToJson(chatData));
 			
 			this.text.GetComponent<InputField>().text = "";
 		}
