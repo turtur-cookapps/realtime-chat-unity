@@ -12,16 +12,17 @@ public class Main : MonoBehaviour {
 	// Use this for initialization
 
 	public GameObject text;
-	public string userName;
-	public string avatar;
+	private string userName = "영진";
+	private string avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-x6umATOcMVdzb8JkfGhafTqmNM1hFy3AT_X9VUUtJsmyjph_";
 
 	public GameObject scrollContainer;
 
-	public List<ChatData> chatDatas = new List<ChatData>();
+	private List<ChatData> chatDatas = new List<ChatData>();
 
 	void Start () {
-		// FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://realtime-chat-unity.firebaseio.com/");
-		// this.db = FirebaseDatabase.DefaultInstance.RootReference;
+		//FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://realtime-chat-unity.firebaseio.com/");
+		//this.db = FirebaseDatabase.DefaultInstance.RootReference;
+		
 		for(int i = 0; i < 50; i++) {
 			ChatData chatData = new ChatData();
 			chatData.userName = "영진";
@@ -30,13 +31,11 @@ public class Main : MonoBehaviour {
 			chatDatas.Add(chatData);
 		}
 		
-		//int topY = -30;
-		//int marginY = 50;
 		for(int i = 0; i < this.chatDatas.Count; i++) {
 			GameObject chat = (GameObject)Instantiate(Resources.Load("Chat"));
+			chat.GetComponentInChildren<Text>().text = this.chatDatas[i].text;
+			chat.GetComponentInChildren<UserImage>().LoadImage(this.chatDatas[i].avatar);
 			chat.transform.SetParent(this.scrollContainer.transform);
-			//chat.transform.position = new Vector3(0, topY-(marginY*i), 0);
-			//Debug.Log(topY-(marginY*i));
 		}
 	}
 	
@@ -46,12 +45,16 @@ public class Main : MonoBehaviour {
 		if(this.text.GetComponent<InputField>().isFocused == false) return;
 		if((Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter))) {
 			ChatData chatData = new ChatData();
-			chatData.userName = "영진";
-			chatData.text = "가나다라마바사";
-			chatData.avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-x6umATOcMVdzb8JkfGhafTqmNM1hFy3AT_X9VUUtJsmyjph_";
+			chatData.userName = this.userName;
+			chatData.text = this.text.GetComponent<InputField>().text;
+			chatData.avatar = this.avatar;
 			chatDatas.Add(chatData);
+			
 			GameObject chat = (GameObject)Instantiate(Resources.Load("Chat"));
+			chat.GetComponentInChildren<Text>().text = chatData.text;
+			chat.GetComponentInChildren<UserImage>().LoadImage(chatData.avatar);
 			chat.transform.SetParent(this.scrollContainer.transform);
+			chatData.text = this.text.GetComponent<InputField>().text = "";
 		}
 	}
 }
