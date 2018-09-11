@@ -20,6 +20,11 @@ public class Main : MonoBehaviour {
 	private List<ChatData> chatDatas = new List<ChatData>();
 
 	void Start () {
+		Firebase.Auth.FirebaseAuth auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
+		Firebase.Auth.FirebaseUser user = auth.CurrentUser;
+		this.userName = user.DisplayName;
+		this.avatar = user.PhotoUrl.ToString();
+
 		FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://realtime-chat-unity.firebaseio.com/");
 		this.db = FirebaseDatabase.DefaultInstance;
 		this.db.GetReference("chats").LimitToLast(10).ChildAdded += this.ChildAdded;
@@ -47,7 +52,6 @@ public class Main : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(this.text.GetComponent<InputField>().text.Length <= 0) return;
-		if(this.text.GetComponent<InputField>().isFocused == false) return;
 		if((Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter))) {
 			
 			ChatData chatData = new ChatData();
@@ -56,8 +60,8 @@ public class Main : MonoBehaviour {
 			chatData.avatar = this.avatar;
 			chatDatas.Add(chatData);
 			
-			string id = this.db.GetReference("chats").Push().Key;
-			this.db.GetReference("chats").Child(id).SetRawJsonValueAsync(JsonUtility.ToJson(chatData));
+			// string id = this.db.GetReference("chats").Push().Key;
+			// this.db.GetReference("chats").Child(id).SetRawJsonValueAsync(JsonUtility.ToJson(chatData));
 			
 			this.text.GetComponent<InputField>().text = "";
 		}
